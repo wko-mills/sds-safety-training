@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDS Lumber — Fire Protection Impairment SUPERVISOR Training</title>
+<style>
+  :root { --blue:#2E75B6; --dark:#1F4E79; --gray:#666; --light:#F2F2F2;
+          --green:#2E8B57; --amber:#E8A317; --orange:#D2691E; --red:#B22222; --maroon:#701C1C; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:Arial,Helvetica,sans-serif; background:var(--light); color:#222; line-height:1.5; -webkit-text-size-adjust:100%; }
+  .wrap { max-width:640px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column; background:#fff; box-shadow:0 0 24px rgba(0,0,0,.08); }
+  header { background:var(--dark); color:#fff; padding:14px 20px; }
+  header .co { font-weight:bold; font-size:15px; letter-spacing:.5px; }
+  header .prog { font-size:12px; color:#cfe0f0; }
+  .badge { display:inline-block; background:var(--amber); color:#2b1c00; font-weight:bold; font-size:11px; letter-spacing:1px; padding:2px 8px; border-radius:999px; margin-top:5px; }
+  .bar { height:6px; background:#dce7f2; } .bar span { display:block; height:100%; background:var(--blue); width:0%; transition:width .3s; }
+  main { flex:1; padding:24px 20px 32px; }
+  h1 { color:var(--dark); font-size:24px; margin-bottom:12px; }
+  p { margin-bottom:12px; font-size:16px; }
+  ul, ol { margin:0 0 12px 22px; } li { margin-bottom:7px; font-size:16px; }
+  .eyebrow { text-transform:uppercase; letter-spacing:1.5px; font-size:11px; color:var(--gray); font-weight:bold; margin-bottom:6px; }
+  .card { background:var(--light); border-left:4px solid var(--blue); padding:12px 14px; margin:14px 0; border-radius:0 6px 6px 0; font-size:15px; }
+  .card.warn { border-left-color:var(--red); }
+  .card.do { border-left-color:var(--green); }
+  .notice { background:#fff8e1; border-left:4px solid var(--amber); padding:12px 14px; margin:14px 0; border-radius:0 6px 6px 0; font-size:15px; }
+  .btn { display:block; width:100%; background:var(--blue); color:#fff; border:none; border-radius:8px; padding:15px; font-size:17px; font-weight:bold; font-family:inherit; cursor:pointer; margin-top:18px; }
+  .btn:active { background:var(--dark); } .btn:disabled { background:#b9c8d6; cursor:default; }
+  .btn.secondary { background:#fff; color:var(--blue); border:2px solid var(--blue); }
+  a.btn { text-decoration:none; text-align:center; box-sizing:border-box; }
+  input[type=text] { width:100%; padding:13px; font-size:17px; font-family:inherit; border:2px solid #c6d4e2; border-radius:8px; margin-top:6px; }
+  input[type=text]:focus { outline:none; border-color:var(--blue); }
+  label { font-weight:bold; font-size:14px; color:var(--dark); }
+  .opt { display:block; width:100%; text-align:left; background:#fff; border:2px solid #c6d4e2; border-radius:8px; padding:13px 14px; font-size:16px; font-family:inherit; margin-top:10px; cursor:pointer; }
+  .opt.sel { border-color:var(--blue); background:#eaf2fa; }
+  .opt.right { border-color:var(--green); background:#e8f5ee; }
+  .opt.wrong { border-color:var(--red); background:#fbeaea; }
+  .feedback { margin-top:12px; padding:12px 14px; border-radius:8px; font-size:15px; display:none; }
+  .feedback.good { background:#e8f5ee; border-left:4px solid var(--green); display:block; }
+  .feedback.bad { background:#fbeaea; border-left:4px solid var(--red); display:block; }
+  .qnum { font-size:12px; color:var(--gray); font-weight:bold; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+  .cert { border:3px solid var(--dark); border-radius:10px; padding:22px; text-align:center; margin-top:16px; }
+  .cert .big { font-size:22px; font-weight:bold; color:var(--dark); margin:8px 0; }
+  .cert .code { font-size:26px; letter-spacing:3px; font-weight:bold; color:var(--blue); background:var(--light); border-radius:8px; padding:10px; margin:12px 0; }
+  .score-pill { display:inline-block; background:var(--green); color:#fff; border-radius:999px; padding:6px 18px; font-weight:bold; font-size:18px; }
+  .score-pill.fail { background:var(--red); }
+  table.mini { border-collapse:collapse; width:100%; margin:12px 0; font-size:14px; }
+  table.mini th { background:var(--blue); color:#fff; padding:8px; text-align:left; }
+  table.mini td { border:1px solid #d9e2ec; padding:8px; vertical-align:top; }
+  table.mini tr:nth-child(even) td { background:var(--light); }
+  footer { padding:12px 20px; font-size:11px; color:var(--gray); text-align:center; border-top:1px solid #e4e9ef; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="co">SDS LUMBER COMPANY LLC</div>
+    <div class="prog">Fire Protection Impairment Program · NFPA 25</div>
+    <div class="badge">SUPERVISOR MODULE</div>
+  </header>
+  <div class="bar"><span id="prog"></span></div>
+  <main id="main"></main>
+  <footer>SDS Lumber LLC · Bingen, WA · Fire Protection Impairment Program · Supervisor Module v1.1 (2026)</footer>
+</div>
+
+<script>
+const FORM_URL = "https://forms.cloud.microsoft/r/z73DFxatx4";
+
+let empName = "", slideIdx = 0, quizIdx = 0, quizScore = 0;
+
+const slides = [
+{ t:'content', eyebrow:'Section 1 of 6', title:'What an Impairment Is — and Why It Matters', html:
+  `<p>A <b>fire protection impairment</b> is any condition in which a fire protection system, or part of one, is out of service — a sprinkler zone drained, a control valve closed, a fire pump down, a hydrant or water supply cut, or an alarm panel offline.</p>
+  <div class="notice"><b>An impaired sprinkler system is the single largest driver of a serious or total-loss fire in a wood products facility.</b> The entire purpose of this program is to control the window while protection is down — plan it, tag it, communicate it, and close it as fast as possible.</div>
+  <p>There are two kinds, and they are handled differently:</p>
+  <table class="mini">
+  <tr><th>Type</th><th>What it is</th></tr>
+  <tr><td><b>Planned</b></td><td>Known in advance and scheduled — maintenance, testing, or modification. Protection is <b>never</b> taken down to permit hot work. Controlled <b>before</b> it begins.</td></tr>
+  <tr><td><b>Emergency</b></td><td>Unplanned — a break, freeze, or failure. Same controls, executed reactively, with restoring protection treated as urgent.</td></tr>
+  </table>
+  <div class="card warn">Impairment authority at SDS Lumber is top-down on purpose. The <b>Impairment Coordinator is the Mill Superintendent (Brian Weir)</b>, with the <b>Maintenance Manager (Mike Dennis) as alternate</b>. No fire protection system comes out of service without that authorization.</div>` },
+
+{ t:'content', eyebrow:'Section 2 of 6', title:'Recognize It and Report It', html:
+  `<p>Your first job as a supervisor is to <b>notice</b> an impairment and <b>report it</b> — because a system can be impaired without anyone deciding to impair it. A closed valve, a frozen line, a struck hydrant, a leaking riser, an alarm panel in trouble: all are impairments.</p>
+  <p><b>What to do the moment you find or suspect one:</b></p>
+  <ul>
+  <li>Report it immediately to the <b>Impairment Coordinator</b> (Mill Superintendent; alternate Maintenance Manager). Speed matters — protection is reduced until it is restored.</li>
+  <li>Do not assume someone else has reported it. A discovered impairment is treated exactly like a planned one, minus the advance notice.</li>
+  <li>Tell your crew that protection in the area is reduced, and put the precautions in Section 4 into effect until the system is back.</li>
+  </ul>
+  <div class="card do">Teach your crews the same reflex: fire protection equipment that looks damaged, leaking, obstructed, or shut off gets reported — it is never assumed to be someone else's problem.</div>` },
+
+{ t:'content', eyebrow:'Section 3 of 6', title:'The Impairment Tag', html:
+  `<p>Every impairment is marked with the red <b>"Fire Protection Impaired"</b> tag, placed at the system's control point <b>and</b> at the fire alarm panel, for the full duration of the impairment.</p>
+  <p><b>What the tag records:</b> whether the impairment is planned or emergency, which system is affected, the location, the time it went out of service, the precautions in effect, the notifications made, and — at the end — the restoration and return-to-service confirmation.</p>
+  <ul>
+  <li>The tag stays in place until the <b>Impairment Coordinator authorizes its removal</b> at return to service. Not before.</li>
+  <li><b>No one removes an impairment tag on their own.</b> A tag that disappears means someone may believe protection is restored when it is not.</li>
+  <li>The tag SDS Lumber uses today is built to the NFPA 25 standard. If our insurer (PRMA) issues their own tag, it replaces ours — the procedure does not change.</li>
+  </ul>
+  <div class="card warn">A tag is not the same as protection. The tag tells everyone the system is down — it does not make it safer. The precautions in the next section are what actually reduce the risk while the tag is up.</div>` },
+
+{ t:'content', eyebrow:'Section 4 of 6', title:'Precautions While a System Is Down', html:
+  `<p>While any fire protection system is impaired, these precautions are in effect in the affected area until the system is restored. Enforcing them is <b>your</b> job as the supervisor on the floor:</p>
+  <table class="mini">
+  <tr><th>Precaution</th><th>Why</th></tr>
+  <tr><td><b>Fire watch posted</b> in and around the affected area</td><td>A person, not a system, is now the detection layer</td></tr>
+  <tr><td><b>No hot work</b> in any area whose fire protection is impaired — no permit issued or in effect</td><td>Removes the most common ignition source while protection is down</td></tr>
+  <tr><td><b>Extra extinguishers staged</b> in the area</td><td>First-response capability with the sprinklers out</td></tr>
+  <tr><td><b>Housekeeping tightened</b> — combustibles removed, ignition sources controlled</td><td>Less fuel, fewer ways to start a fire</td></tr>
+  <tr><td>Impaired area and duration kept <b>as small and short as practicable</b></td><td>Every extra minute and square foot is added exposure</td></tr>
+  </table>
+  <div class="card warn"><b>Hot work and impairment do not mix.</b> Our insurer (PRMA) allows no Hot Work Permit process while protection is impaired. A system is never taken down <i>to allow</i> hot work near it — find another method, or the hot work waits until the system is restored. Fire <i>detection</i> may be isolated in a hot work area to prevent nuisance alarms; <i>suppression</i> never is. See the Hot Work Program.</div>` },
+
+{ t:'content', eyebrow:'Section 5 of 6', title:'Isolation, Restoration, and "Mobile 17"', html:
+  `<p>The physical work of isolating and restoring fire protection systems — operating sprinkler control valves, fire pump controls, and water supply valves — is performed by <b>Maintenance / Millwrights</b>, at the direction of the Impairment Coordinator. The <b>Truck Shop Supervisor</b> owns the fire pump and reports any pump condition that reduces protection as an impairment.</p>
+  <div class="notice">The on-duty millwrights are reached by radio call sign <b>"Mobile 17."</b> Both supervisors and the Emergency Coordinator can raise them. This is the same crew named in the Emergency Action and Fire Prevention Plan for operating fire-water valves during a fire.</div>
+  <p><b>What that means for you:</b></p>
+  <ul>
+  <li>If you need a system isolated or restored, it goes through the Impairment Coordinator, and the valve work is done by the millwrights (Mobile 17) — not by whoever is nearest.</li>
+  <li>Operating a fire pump or fire-water valve is a <b>hands-on skill</b>. This module gives you the knowledge of who does it and how the flow works; actual valve competency comes from hands-on training with a sign-off, not from this quiz.</li>
+  <li>Restoration is treated as the top maintenance priority, especially for an emergency impairment.</li>
+  </ul>
+  <div class="card do">Know the call sign before you need it. In an emergency, "Mobile 17" is how the fire-water and utility isolation crew is reached — a call sign nobody remembers is a call sign that fails at 2 a.m.</div>` },
+
+{ t:'content', eyebrow:'Section 6 of 6', title:'Return to Service and the Log', html:
+  `<p>An impairment is <b>not closed</b> until the system is confirmed back in service. The tag comes off last, not first.</p>
+  <p><b>The return-to-service sequence:</b></p>
+  <ul>
+  <li>Millwrights complete the work and reopen the system — valves confirmed in the normal open position and secured as required.</li>
+  <li>The system is <b>tested</b> to confirm it is operational (for example, a main drain or flow test on a sprinkler system, or a pump run test).</li>
+  <li>The <b>Impairment Coordinator verifies</b> the system is fully restored and authorizes tag removal.</li>
+  <li>Notifications made when protection went down are <b>cleared</b> — the insurer (PRMA), the fire department, and the Emergency Coordinator are told the system is back. (The Coordinator sends PRMA's Sprinkler Impairment Notice for any sprinkler impairment expected to exceed 4 hours — 24 hours ahead when planned, as soon as possible in an emergency.)</li>
+  <li>The event is recorded in the <b>Impairment Log</b>: system, times out and restored, precautions and notifications, and who tested and confirmed.</li>
+  </ul>
+  <div class="card do">The log is not paperwork for its own sake — it is how SDS Lumber proves to the insurer and to DOSH that every impairment was controlled and closed. One line per impairment, planned or emergency, kept at least three years.</div>` }
+];
+
+const quiz = [
+{ q:'What is a fire protection impairment?',
+  opts:['Only a complete shutdown of every sprinkler in the building','Any condition where a fire protection system, or part of one, is out of service','A false alarm on the fire panel','A monthly extinguisher inspection'], a:1 },
+{ q:'Who authorizes taking a fire protection system out of service at SDS Lumber?',
+  opts:['Any supervisor on shift','The Impairment Coordinator (Mill Superintendent; alternate Maintenance Manager)','Whoever is doing the work','The fire department'], a:1 },
+{ q:'While a sprinkler zone is impaired, which precaution is NOT correct?',
+  opts:['Post a fire watch in the affected area','Stage extra extinguishers','Allow hot work in the impaired area to finish faster','Tighten housekeeping and remove combustibles'], a:2 },
+{ q:'Who operates the fire-water and system valves during an impairment, and how are they reached?',
+  opts:['Any nearby employee, by cell phone','The millwrights, by radio call sign "Mobile 17," at the Coordinator\'s direction','The office staff, by email','The fire department, by 911'], a:1 },
+{ q:'When may an impairment tag be removed?',
+  opts:['As soon as the repair looks finished','Whenever the fire watch gets tired','Only after the system is tested, confirmed restored, and the Impairment Coordinator authorizes removal','Anyone can remove it once the shift ends'], a:2 }
+];
+
+const main = document.getElementById('main');
+const progEl = document.getElementById('prog');
+const totalSteps = slides.length + quiz.length + 2;
+function setProg(n){ progEl.style.width = Math.min(100, Math.round(n/totalSteps*100)) + '%'; }
+function esc(s){ const d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+function showStart(){
+  setProg(0);
+  main.innerHTML = `
+    <h1>Fire Protection Impairment — Supervisor Training</h1>
+    <p>This module covers what supervisors and maintenance personnel must know and do under SDS Lumber's Fire Protection Impairment Program. It is required before you supervise work near, or perform work on, an impaired fire protection system.</p>
+    <div class="card">Pass the 5-question quiz with <b>80% or better</b> to finish. You'll get a completion code and a button to record it.</div>
+    <label for="nm">Your full name</label>
+    <input type="text" id="nm" placeholder="First and Last Name">
+    <div id="nmErr" style="color:var(--red);font-size:14px;margin-top:6px;display:none">Enter your first and last name.</div>
+    <button class="btn" id="goBtn">Begin</button>`;
+  document.getElementById('goBtn').addEventListener('click', ()=>{
+    const v = document.getElementById('nm').value.trim();
+    if (!v || v.split(/\s+/).length < 2){ document.getElementById('nmErr').style.display='block'; return; }
+    empName = v; slideIdx = 0; showSlide(); window.scrollTo(0,0);
+  });
+  const inp = document.getElementById('nm');
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('goBtn').click(); });
+}
+
+function showSlide(){
+  if (slideIdx >= slides.length){ quizIdx=0; quizScore=0; showQuizIntro(); return; }
+  setProg(1+slideIdx);
+  const s = slides[slideIdx];
+  main.innerHTML = `<div class="eyebrow">${s.eyebrow}</div><h1>${s.title}</h1>${s.html}
+    <div style="display:flex;gap:10px;margin-top:18px">
+      ${slideIdx>0?'<button class="btn secondary" id="prevBtn">Back</button>':''}
+      <button class="btn" id="nextBtn">${slideIdx<slides.length-1?'Next':'Start Quiz'}</button>
+    </div>`;
+  document.getElementById('nextBtn').addEventListener('click', ()=>{ slideIdx++; showSlide(); window.scrollTo(0,0); });
+  if (slideIdx>0) document.getElementById('prevBtn').addEventListener('click', ()=>{ slideIdx--; showSlide(); window.scrollTo(0,0); });
+}
+
+function showQuizIntro(){
+  setProg(1+slides.length);
+  main.innerHTML = `<h1>Knowledge Quiz</h1>
+    <p>5 questions — you need 4 correct (80%) to pass.</p>
+    <button class="btn" id="startQ">Start Quiz</button>`;
+  document.getElementById('startQ').addEventListener('click', ()=>{ quizIdx=0; quizScore=0; showQuizQ(); window.scrollTo(0,0); });
+}
+
+function showQuizQ(){
+  if (quizIdx >= quiz.length){ showResult(); return; }
+  setProg(1+slides.length+quizIdx);
+  const qq = quiz[quizIdx];
+  main.innerHTML = `<div class="qnum">Question ${quizIdx+1} of ${quiz.length}</div>
+    <p style="font-size:18px;font-weight:bold;margin-bottom:14px">${qq.q}</p>
+    ${qq.opts.map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
+    <div id="fb"></div>
+    <button class="btn" id="subBtn" disabled>Submit Answer</button>`;
+  let sel = -1;
+  document.querySelectorAll('.opt').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      if (sel === -2) return;
+      sel = +b.dataset.i;
+      document.querySelectorAll('.opt').forEach(x=>x.classList.toggle('sel', +x.dataset.i===sel));
+      document.getElementById('subBtn').disabled = false;
+    });
+  });
+  document.getElementById('subBtn').addEventListener('click', ()=>{
+    if (sel < 0 || sel === -2) return;
+    document.querySelectorAll('.opt').forEach(b=>{ const i=+b.dataset.i; if(i===qq.a) b.classList.add('right'); else if(i===sel) b.classList.add('wrong'); b.style.pointerEvents='none'; });
+    const ok = sel===qq.a;
+    if (ok) quizScore++;
+    document.getElementById('fb').innerHTML = `<div class="feedback ${ok?'good':'bad'}">${ok?'Correct.':'Incorrect — the correct answer is highlighted.'}</div>`;
+    sel = -2;
+    const btn = document.getElementById('subBtn');
+    btn.textContent = quizIdx < quiz.length-1 ? 'Next Question' : 'See Results';
+    btn.disabled = false;
+    btn.onclick = ()=>{ quizIdx++; showQuizQ(); window.scrollTo(0,0); };
+  });
+}
+
+let completionCode = null;
+function genCode(){
+  const ds = new Date().toISOString().slice(0,10);
+  let h=0; const src=empName.toUpperCase()+ds+quizScore+'SUP';
+  for(let i=0;i<src.length;i++){ h=((h<<5)-h)+src.charCodeAt(i); h|=0; }
+  return 'IMP26S-' + Math.abs(h).toString(36).toUpperCase().slice(0,5).padStart(5,'0');
+}
+
+function showResult(){
+  setProg(totalSteps);
+  const pct = Math.round(quizScore/quiz.length*100);
+  const passed = quizScore >= Math.ceil(quiz.length*80/100);
+  const dateStr = new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  if (passed){
+    if (!completionCode) completionCode = genCode();
+    main.innerHTML = `
+      <div class="score-pill">${quizScore}/${quiz.length} — ${pct}%</div>
+      <div class="cert">
+        <div style="font-size:14px;color:var(--gray)">CERTIFICATE OF COMPLETION</div>
+        <div class="big">${esc(empName)}</div>
+        <div>Fire Protection Impairment — Supervisor Training v1.1</div>
+        <p><b>${dateStr}</b> · Score: <b>${quizScore}/${quiz.length} (${pct}%)</b></p>
+        <div style="font-size:14px;margin-top:8px">Your completion code:</div>
+        <div class="code">${completionCode}</div>
+      </div>
+      <p style="margin-top:16px"><b>Last step — record your completion:</b> tap the button below, select <b>"Fire Protection Impairment — Supervisor"</b>, enter your completion code, and submit. Your training is not on record until you submit the form.</p>
+      <a href="${FORM_URL}" target="_blank" class="btn" style="background:var(--green)">Record Your Completion</a>`;
+  } else {
+    main.innerHTML = `
+      <div class="score-pill fail">${quizScore}/${quiz.length} — ${pct}%</div>
+      <p style="margin-top:14px">You need 80% to pass. Review the material and take the quiz again — your crew depends on you knowing this.</p>
+      <button class="btn secondary" id="retryBtn">Review &amp; Try Again</button>`;
+    document.getElementById('retryBtn').addEventListener('click', ()=>{ quizIdx=0; quizScore=0; slideIdx=0; showSlide(); window.scrollTo(0,0); });
+  }
+}
+
+// expose for testing
+window.APP = { slides, quiz, FORM_URL, completionCode, showStart,
+  get empName(){ return empName; }, set empName(v){ empName=v; },
+  get slideIdx(){ return slideIdx; }, set slideIdx(v){ slideIdx=v; },
+  get quizIdx(){ return quizIdx; }, set quizIdx(v){ quizIdx=v; },
+  get quizScore(){ return quizScore; }, set quizScore(v){ quizScore=v; },
+  get currentCode(){ return completionCode; }
+};
+showStart();
+</script>
+</body>
+</html>
