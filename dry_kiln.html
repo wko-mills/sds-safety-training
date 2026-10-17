@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDS Lumber — Dry Kiln Safety</title>
+<style>
+  :root { --blue:#2E75B6; --dark:#1F4E79; --light:#F2F2F2; --gray:#666666; --red:#C00000; --green:#2E7D32; --amber:#E07B00; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family: Arial, Helvetica, sans-serif; background:#f7f9fb; color:#222; line-height:1.5; }
+  .wrap { max-width:760px; margin:0 auto; padding:16px; }
+  header.bar { background:var(--dark); color:#fff; padding:14px 20px; }
+  header.bar .co { font-weight:bold; font-size:1.05em; letter-spacing:.5px; }
+  header.bar .sub { font-size:.85em; margin-top:2px; opacity:.9; }
+  .splash { text-align:center; padding:34px 22px; }
+  .splash .co { color:var(--gray); font-size:.85em; letter-spacing:2px; font-weight:bold; }
+  .splash .ti-en { color:var(--dark); font-size:1.6em; font-weight:bold; margin:10px 0 4px; }
+  .splash .ti-es { color:var(--blue); font-size:1.4em; font-weight:bold; margin-bottom:18px; }
+  .splash .choose { margin-bottom:16px; }
+  .splash .langbtns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .splash .langbtns button { font-family:Arial; background:var(--blue); color:#fff; border:none; border-radius:6px; padding:14px 0; width:240px; max-width:45%; font-size:1.05em; font-weight:bold; cursor:pointer; }
+  .langbar { text-align:right; padding:10px 16px 0; }
+  .langbar button { font-family:Arial; border:2px solid var(--blue); background:#fff; color:var(--blue); padding:6px 14px; font-weight:bold; cursor:pointer; border-radius:4px; margin-left:6px; font-size:.95em; }
+  .langbar button.active { background:var(--blue); color:#fff; }
+  .card { background:#fff; border:1px solid #d9e2ec; border-radius:8px; padding:22px; margin:16px 0; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+  h1 { color:var(--dark); font-size:1.35em; margin-bottom:12px; }
+  h2 { color:var(--blue); font-size:1.1em; margin:16px 0 8px; }
+  p, li { margin-bottom:10px; }
+  ul { padding-left:22px; }
+  .progress { background:#e1e8f0; border-radius:6px; height:10px; overflow:hidden; margin:4px 0 14px; }
+  .progress > div { background:var(--blue); height:100%; width:0; transition:width .3s; }
+  .btn { font-family:Arial; display:inline-block; background:var(--blue); color:#fff; border:none; padding:12px 26px; font-size:1em; font-weight:bold; border-radius:6px; cursor:pointer; margin-top:14px; }
+  .btn:disabled { background:#9db8d2; cursor:not-allowed; }
+  .btn.secondary { background:#fff; color:var(--blue); border:2px solid var(--blue); }
+  input[type=text] { font-family:Arial; width:100%; padding:12px; font-size:1em; border:2px solid #b8c7d9; border-radius:6px; margin-top:6px; }
+  input[type=text]:focus { border-color:var(--blue); outline:none; }
+  .kc { background:var(--light); border-left:4px solid var(--blue); padding:16px; border-radius:0 6px 6px 0; margin-top:16px; }
+  .kc .kct { font-weight:bold; color:var(--dark); margin-bottom:8px; }
+  .opt { display:block; background:#fff; border:2px solid #c9d6e4; border-radius:6px; padding:10px 12px; margin:8px 0; cursor:pointer; }
+  .opt input { margin-right:10px; }
+  .opt.correct { border-color:var(--green); background:#eef7ee; }
+  .opt.wrong { border-color:var(--red); background:#fdecec; }
+  .fb { font-weight:bold; margin-top:8px; display:none; }
+  .fb.ok { color:var(--green); display:block; }
+  .fb.bad { color:var(--red); display:block; }
+  .qnum { color:var(--gray); font-size:.85em; }
+  .quizq { border-bottom:1px solid #e4eaf1; padding:14px 0; }
+  .quizq .qt { font-weight:bold; margin-bottom:6px; }
+  .cert { border:3px solid var(--dark); border-radius:10px; padding:26px; text-align:center; background:#fff; }
+  .cert .big { font-size:1.5em; color:var(--dark); font-weight:bold; margin:10px 0; }
+  .cert .code { font-size:1.6em; letter-spacing:2px; font-weight:bold; color:var(--blue); background:var(--light); display:inline-block; padding:8px 20px; border-radius:6px; margin:10px 0; }
+  .passmsg { color:var(--green); font-weight:bold; font-size:1.2em; }
+  .failmsg { color:var(--red); font-weight:bold; font-size:1.2em; }
+  .notice { background:#fff8e1; border-left:4px solid #f0a500; padding:12px; border-radius:0 6px 6px 0; margin:12px 0; font-size:.95em; }
+  .danger { background:#fdecec; border-left:4px solid var(--red); padding:12px; border-radius:0 6px 6px 0; margin:12px 0; }
+  .phone { font-weight:bold; color:var(--dark); }
+  table.mini { border-collapse:collapse; width:100%; margin:10px 0; font-size:.95em; }
+  table.mini th { background:var(--blue); color:#fff; padding:8px; text-align:left; }
+  table.mini td { border:1px solid #d9e2ec; padding:8px; vertical-align:top; }
+  table.mini tr:nth-child(even) td { background:var(--light); }
+  .tier { border-radius:8px; padding:14px; margin:10px 0; border:1px solid #d9e2ec; }
+  .tier .tt { font-weight:bold; font-size:1.05em; margin-bottom:4px; }
+  .tier.t1 { border-left:6px solid var(--blue); }
+  .tier.t2 { border-left:6px solid var(--amber); }
+  .tier.t3 { border-left:6px solid var(--red); }
+  footer { text-align:center; color:var(--gray); font-size:.8em; padding:20px 0 30px; }
+  .hidden { display:none !important; }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="co">SDS LUMBER LLC</div>
+  <div class="sub">Dry Kiln Safety — Employee Training / Seguridad en Hornos de Secado — Capacitación del Empleado</div>
+</header>
+<div class="langbar hidden" id="langBar">
+  <button id="btnEN" onclick="setLang('en')">English</button>
+  <button id="btnES" onclick="setLang('es')">Español</button>
+</div>
+<div class="wrap">
+  <div class="progress" id="progWrap"><div id="progBar"></div></div>
+  <div id="app"></div>
+</div>
+<footer id="ftr">SDS Lumber LLC &middot; Bingen, WA &middot; WAC 296-78-71017 &amp; 296-78-84005 &middot; Dry Kiln Safety Program v1.3 &middot; Module v1.0 (2026)</footer>
+<script>
+"use strict";
+var FORM_URL = "https://forms.cloud.microsoft/r/z73DFxatx4";
+var MODULE_VERSION = "v1.0";
+var CODE_PREFIX = "DK26-";
+var PASS_PCT = 80;
+
+var STR = {
+en: {"basedOn": "Based on WAC 296-78-71017 and 296-78-84005, the SDS Lumber Dry Kiln Safety Program, and kiln SOPs SOP-KLN-001 to 006. Questions? Ask the Dry Kiln Supervisor or the safety manager.", "introH": "Welcome — Dry Kiln Safety at SDS Lumber", "introP1": "This training covers the rules that keep you safe at Kilns #1–#4: the kiln hazards, the checks before every load, doors, carts and cables, hot checks inside the kiln, the fan deck, heat, kiln fires, and lockout. It takes about 20 minutes.", "introP2": "</p><div class='notice'><b>Kiln training has two parts.</b> This module teaches the rules and the reasons for them. Then your supervisor trains you hands-on and signs your TS Task Training checklist for each kiln task. You need both before working the task on your own.</div><p>Required before assignment and every year for kiln operators, and for anyone who works at the kilns.", "nameLabel": "Enter your full name to begin:", "namePh": "First and last name", "startBtn": "Start Training", "continueBtn": "Continue", "checkBtn": "Check Answer", "kcOk": "Correct — well done.", "kcBad": "Not quite — the correct answer is highlighted. Review it, then continue.", "secLabel": "Section", "ofLabel": "of", "sections": [{"h": "1. Why This Training", "body": "<p>SDS Lumber runs four steam-heated dry kilns, <b>Kilns #1–#4</b>, controlled from the <b>Wellons CMZ Kiln Control</b> program. Each kiln has main doors at both ends of the track and four man doors. Charges on Kilns #3 and #4 are pushed in by forklift; charges on Kilns #1 and #2 are pulled from the west end with a transfer cable.</p><p>Washington law sets rules for kilns — <b>WAC 296-78-71017</b> (construction and equipment) and <b>WAC 296-78-84005</b> (loading, tracks, cars, and doors). SDS puts those rules into the <b>Dry Kiln Safety Program</b>, and the Dry Kiln Supervisor's SOPs show how each job is done:</p><table class='mini'><tr><th>SOP</th><th>Task</th></tr><tr><td>SOP-KLN-001</td><td>Loading and charging a kiln</td></tr><tr><td>SOP-KLN-002</td><td>Starting and running a drying schedule</td></tr><tr><td>SOP-KLN-003</td><td>Hot check (entering the charge area)</td></tr><tr><td>SOP-KLN-004</td><td>Unloading</td></tr><tr><td>SOP-KLN-005</td><td>Fan deck (attic) entry — confined space</td></tr><tr><td>SOP-KLN-006</td><td>Kiln fire response</td></tr></table>", "kc": {"q": "What are the two parts of kiln training?", "opts": ["Reading the SOPs at home", "This module, plus hands-on training and a TS checklist signed by your supervisor", "A forklift license only", "Watching another operator for one shift"], "a": 1}}, {"h": "2. Kiln Hazards", "body": "<p>A kiln combines several serious hazards in one place:</p><ul><li><b>Heat and humidity</b> inside the charge area and fan deck</li><li><b>Steam and hot surfaces</b> — steam lines, coils, valves, and condensate lines</li><li><b>Kiln off-gases</b> — drying lumber gives off vapors, including formaldehyde, acetaldehyde, and methanol</li><li><b>Rotating fans</b> that keep turning after the power is off</li><li><b>Large rolling doors</b> that can fall if knocked off their track</li><li><b>Kiln carts, tracks, and transfer cables</b></li><li><b>Forklifts and wheel loaders</b> working around people</li><li>The <b>fan deck</b>, a permit-required confined space</li><li><b>Fire</b>, and <b>noise</b> in the loading area</li></ul><div class='notice'>Every rule in this training is there to control one of these hazards.</div>", "kc": {"q": "Which of these is a kiln off-gas from drying lumber?", "opts": ["Carbon dioxide from the forklift only", "Chlorine", "Formaldehyde", "Ammonia"], "a": 2}}, {"h": "3. Before Every Load", "body": "<p>Kiln doors and frames are large and expensive, and they protect the people who work around them. Complete these checks <b>before every load or unload</b> (Pre-Loading Checklist):</p><ul><li>The kiln is shut down and released for loading by the Dry Kiln Supervisor</li><li>The main door is <b>fully open, parked, and secured</b>, with its safety devices in place</li><li>Door frame, door tracks, kiln tracks, and stops checked — no damage or debris</li><li>No one in the kiln, on the tracks, or in the loading path</li><li>The load fits the opening; stickers stick out no more than <b>2 inches</b>; the load is stable</li><li>Carts chocked as needed; a spotter if you cannot see both sides of the opening</li><li>Your pre-shift equipment inspection is done</li></ul><div class='danger'><b>Any contact with a door, frame, track, or the kiln — even light: STOP.</b> Keep people clear and call the Dry Kiln Supervisor right away. Loading does not resume until the door and its safety devices are checked. Reporting contact is expected — it is how damage is found before someone is hurt.</div>", "kc": {"q": "Your forklift lightly touches a kiln door frame. What do you do?", "opts": ["Keep going if nothing looks bent", "Mention it at the end of the shift", "Back up and try again", "Stop, keep people clear, and notify the Dry Kiln Supervisor right away"], "a": 3}}, {"h": "4. Doors, Carts, and Cables", "body": "<h2>Doors</h2><ul><li>Doors are fully open, parked, and secured before any cart moves. Never leave a door partly moved.</li><li><b>Never push, pull, or bump</b> a kiln door, door frame, or track stop with a forklift or wheel loader.</li><li>Never stand under a moving door, or between a moving door and a fixed object.</li><li>If a door binds or jumps its track, stop, keep people clear, and call the Dry Kiln Supervisor and Maintenance. Never force it with equipment.</li></ul><h2>Carts and tracks</h2><ul><li>Use a spotter when pushing or pulling a charge.</li><li><b>Sound the horn before any cart moves</b>, and confirm the track is clear and no one is in the kiln or the path.</li><li>Chock carts that must not move.</li></ul><h2>Transfer cable (Kilns #1 and #2)</h2><div class='danger'>A cable under load can snap back. <b>Keep everyone out of the bight of the cable</b> and clear of its path.</div>", "kc": {"q": "Before any kiln cart moves, you…", "opts": ["Sound the horn and confirm the track and path are clear", "Wave once and go", "Only check the far end of the track", "Wait for someone to tell you it moved"], "a": 0}}, {"h": "5. Hot Checks — Entering the Charge Area", "body": "<p>Operators enter the <b>charge area</b> (where the carts sit) for hot checks, following SOP-KLN-003. Every entry follows these rules:</p><ol style='padding-left:22px'><li>The kiln is stopped, the <b>fans have fully stopped</b>, and the <b>heat is off</b> before any door is opened.</li><li>Stand to the side as each door opens — hot air and steam come out. Let the kiln vent for the time set by the Dry Kiln Supervisor.</li><li>Keep the man doors open so there is a way out at both ends.</li><li>Hang the <b>PERSON IN KILN</b> tag on the kiln door. No cart, forklift, wheel loader, or door moves at that kiln while it is up.</li><li>Tell the lead or a coworker before going in, and carry a radio.</li><li>Limit your time inside, drink water, and come out to cool down.</li><li>Stay in the charge area. <b>Never climb into the fan deck.</b></li><li>When done, make sure everyone is out, then remove the tag.</li></ol>", "kc": {"q": "What must be true before you open a kiln door for a hot check?", "opts": ["The kiln is in Hold with the fans running", "The kiln is stopped, the fans have fully stopped, and the heat is off", "Only the heat is off", "Nothing — open it quickly to save time"], "a": 1}}, {"h": "6. The Fan Deck Is a Confined Space", "body": "<p>The <b>fan deck (attic)</b> above the charge area holds the fans, motors, and heating coils. It is a <b>permit-required confined space</b>.</p><ul><li>No one enters without the Dry Kiln Supervisor's authorization and a completed entry permit from the kiln's <b>Black Packet</b>, following SOP-KLN-005.</li><li>Fans and steam are locked out first, the space is cooled and ventilated, and the air is tested before and during entry.</li><li>A trained attendant stays outside the access door the whole time.</li></ul><div class='danger'><b>Never enter to rescue.</b> If someone is hurt or unresponsive inside, call 911. The attendant uses the retrieval equipment from outside. Bingen Fire Department performs entry rescue.</div>", "kc": {"q": "A coworker collapses in the fan deck. What do you do?", "opts": ["Go in right away and pull them out", "Wait and see if they recover", "Call 911 and let the attendant use the retrieval equipment from outside — never enter", "Turn the fans on to bring in fresh air"], "a": 2}}, {"h": "7. Heat", "body": "<p>Work inside a hot kiln, and loading in summer, can cause heat illness.</p><ul><li>Vent the kiln before entering. Limit time inside and take cool-down breaks outside the kiln.</li><li>Drink cool water before you are thirsty.</li><li>New and returning workers build up to full heat exposure over several days.</li></ul><div class='notice'><b>Early signs</b> — heavy sweating, cramps, headache, dizziness, nausea, unusual tiredness: leave the kiln, cool down, drink water, and tell your supervisor.</div><div class='danger'><b>Emergency signs</b> — confusion, slurred speech, fainting, hot skin, seizures: <b>call 911</b>, move the person to a cool area, and cool them right away with water and air.</div><p>In cold weather, wait in the warm room at least 10 minutes after leaving a hot kiln before going out into cold air.</p>", "kc": {"q": "A coworker coming out of a hot kiln is confused and slurring words. This is…", "opts": ["Normal tiredness", "A heat emergency — call 911 and cool them right away", "A reason to go back in and finish faster", "Nothing to report"], "a": 1}}, {"h": "8. Kiln Fire", "body": "<p>Fresh air feeds a fire. <b>Never open a kiln if a fire is suspected</b> — not the main doors, man doors, or fan deck doors — and never enter.</p><h2>Recognize it</h2><ul><li>The <b>Fire trip</b> alarm in Wellons CMZ (two dry-bulb sensors above 300°F)</li><li>Temperature keeps rising after the heat is off</li><li>Smoke from vents, doors, or seals, or the smell of burning wood</li><li>One high sensor alone: watch it closely and tell the lead</li></ul><h2>First response (SOP-KLN-006)</h2><ul><li>Keep the kiln closed. If the Fire trip has not already shut it down, stop the kiln in Wellons CMZ, and check the fans have stopped.</li><li>Call 911 and give the kiln number. Notify the kiln supervisor, the steam plant, and the ESHS Manager.</li><li>Steam smothering is applied as directed by the kiln supervisor.</li></ul><div class='danger'>Each kiln has automatic sprinklers. <b>Never close a kiln sprinkler valve during a fire</b> unless the fire department directs it. If the fire has broken out of the kiln, do not fight it — get clear. The kiln is opened only with the fire department on site.</div>", "kc": {"q": "You suspect a fire in a kiln. The first rule is…", "opts": ["Open a man door to look", "Go in with an extinguisher", "Turn up the fans", "Never open the kiln — keep the doors closed"], "a": 3}}, {"h": "9. Lockout — Your Role", "body": "<p>Kiln fans, motors, steam, air, and doors are serviced only under the kiln lockout procedures and the SDS Lockout/Tagout Program.</p><ul><li><b>Stopping a kiln from the Wellons control screen is not lockout.</b> Energy is locked at the disconnects, breakers, and manual valves listed for each kiln.</li><li>Fans keep turning after the power is off, and moving air can turn a fan that is off.</li><li><b>Never remove someone else's lock or tag</b>, and never try to start equipment that is locked out.</li></ul><div class='notice'>If you are not an authorized lockout employee, your job is simple: stay clear, leave locks and tags alone, and ask your supervisor if you are unsure.</div>", "kc": {"q": "Stopping the kiln from the Wellons control screen before maintenance work is…", "opts": ["Not lockout — energy must be locked at the isolation devices", "Full lockout", "Enough for fan deck entry", "Only needed for steam work"], "a": 0}}], "quiz": [{"q": "The permit-required confined space at the kilns is…", "opts": ["The charge area", "The fan deck (attic)", "The warm room", "The kiln control room"], "a": 1}, {"q": "Before loading, the main kiln door must be…", "opts": ["Partly open", "Closed until the cart reaches it", "Fully open, parked, and secured, with its safety devices in place", "Removed from its track"], "a": 2}, {"q": "Your forklift lightly touches a kiln door frame while loading. You should…", "opts": ["Stop, keep people clear, and notify the Dry Kiln Supervisor right away", "Keep loading if there is no visible damage", "Report it at the end of the shift", "Back up and try again"], "a": 0}, {"q": "Before opening a kiln door for a hot check…", "opts": ["The kiln may stay in Hold with the fans running", "Open it quickly and step right in", "Only the heat needs to be off", "The kiln is stopped, the fans have fully stopped, and the heat is off"], "a": 3}, {"q": "While anyone is inside the charge area…", "opts": ["Carts may move if they go slowly", "The PERSON IN KILN tag is hung and no cart, forklift, or door moves at that kiln", "Close the man doors to keep the heat in", "They may go up into the fan deck if needed"], "a": 1}, {"q": "A kiln fire is suspected. The first rule is…", "opts": ["Open a man door to check", "Go in with a fire extinguisher", "Never open the kiln — keep all doors closed", "Turn the fans up"], "a": 2}, {"q": "Stickers may stick out from the sides of a kiln stack no more than…", "opts": ["2 inches", "6 inches", "12 inches", "There is no limit"], "a": 0}, {"q": "The kiln sprinklers have activated during a fire. You should…", "opts": ["Close the sprinkler valve to save water", "Open a door to see if the fire is out", "Shut the sprinklers off after one minute", "Keep the kiln closed and let the sprinklers run; do not close the valve unless the fire department directs it"], "a": 3}, {"q": "When a charge is pulled with the transfer cable on Kilns #1 and #2…", "opts": ["Stand next to the cable to guide it", "Keep everyone out of the bight of the cable and clear of its path", "Hold the cable by hand to steady it", "Pull as fast as possible"], "a": 1}, {"q": "Stopping the kiln from the Wellons control screen before maintenance…", "opts": ["Counts as lockout", "Is enough for fan deck entry", "Is not lockout — energy must be locked at the isolation devices", "Is only needed for steam work"], "a": 2}], "quizH": "Final Quiz", "quizIntro": "Answer all 10 questions. You need 8 correct (80%) to pass. Take your time — you can review the material and retake the quiz if needed.", "submitBtn": "Submit Quiz", "answerAll": "Please answer every question before submitting.", "passH": "Congratulations — You Passed!", "passSub": "Certificate of Completion", "passModule": "Dry Kiln Safety — Employee Training ", "scoreLabel": "Score", "dateLabel": "Date", "codeLabel": "Your completion code", "passInstr": "<b>Last step — record your completion:</b> tap the button below and submit the completion form. Enter your name, select <b>\"Dry Kiln Safety / Seguridad en Hornos de Secado\"</b> from the module list, and enter the completion code shown above. Your training is not on record until you submit the form.", "completion": "", "recordBtn": "Record My Completion", "failH": "Not Yet — Keep Going", "failMsg": "You scored below 80%. Review the material — especially the pre-loading checks, hot check rules, the fan deck, kiln fire response, and lockout — and try again. There is no limit on attempts.", "reviewBtn": "Review the Material", "retakeBtn": "Retake the Quiz", "yourScore": "Your score"},
+es: {"basedOn": "Basado en WAC 296-78-71017 y 296-78-84005, el Programa de Seguridad de Hornos de Secado de SDS Lumber y los procedimientos SOP-KLN-001 a 006. ¿Preguntas? Pregunte al Supervisor de Hornos o al gerente de seguridad.", "introH": "Bienvenido — Seguridad en Hornos de Secado en SDS Lumber", "introP1": "Esta capacitación cubre las reglas que lo protegen en los Hornos #1–#4: los peligros de los hornos, las revisiones antes de cada carga, las puertas, carros y cables, las revisiones en caliente dentro del horno, la cubierta de ventiladores, el calor, los incendios en el horno y el bloqueo. Toma unos 20 minutos.", "introP2": "</p><div class='notice'><b>La capacitación de hornos tiene dos partes.</b> Este módulo enseña las reglas y sus razones. Después, su supervisor lo capacita en la práctica y firma su lista de Capacitación por Tarea (TS) para cada tarea del horno. Necesita ambas antes de hacer la tarea por su cuenta.</div><p>Requerido antes de la asignación y cada año para los operadores de hornos y para toda persona que trabaje en los hornos.", "nameLabel": "Escriba su nombre completo para comenzar:", "namePh": "Nombre y apellido", "startBtn": "Comenzar la capacitación", "continueBtn": "Continuar", "checkBtn": "Verificar respuesta", "kcOk": "Correcto — bien hecho.", "kcBad": "No exactamente — la respuesta correcta está resaltada. Revísela y continúe.", "secLabel": "Sección", "ofLabel": "de", "sections": [{"h": "1. Por qué esta capacitación", "body": "<p>SDS Lumber opera cuatro hornos de secado calentados con vapor, los <b>Hornos #1–#4</b>, controlados desde el programa <b>Wellons CMZ Kiln Control</b>. Cada horno tiene puertas principales en ambos extremos de la vía y cuatro puertas de acceso personal. Las cargas de los Hornos #3 y #4 se empujan con montacargas; las de los Hornos #1 y #2 se jalan desde el extremo oeste con un cable de transferencia.</p><p>La ley de Washington establece reglas para los hornos — <b>WAC 296-78-71017</b> (construcción y equipo) y <b>WAC 296-78-84005</b> (carga, vías, carros y puertas). SDS aplica esas reglas en el <b>Programa de Seguridad de Hornos de Secado</b>, y los procedimientos (SOP) del Supervisor de Hornos muestran cómo se hace cada trabajo:</p><table class='mini'><tr><th>SOP</th><th>Tarea</th></tr><tr><td>SOP-KLN-001</td><td>Cargar un horno</td></tr><tr><td>SOP-KLN-002</td><td>Iniciar y operar un programa de secado</td></tr><tr><td>SOP-KLN-003</td><td>Revisión en caliente (entrar al área de carga)</td></tr><tr><td>SOP-KLN-004</td><td>Descargar</td></tr><tr><td>SOP-KLN-005</td><td>Entrada a la cubierta de ventiladores (ático) — espacio confinado</td></tr><tr><td>SOP-KLN-006</td><td>Respuesta a incendios en el horno</td></tr></table>", "kc": {"q": "¿Cuáles son las dos partes de la capacitación de hornos?", "opts": ["Leer los SOP en casa", "Este módulo, más capacitación práctica y una lista TS firmada por su supervisor", "Solo una licencia de montacargas", "Observar a otro operador durante un turno"], "a": 1}}, {"h": "2. Peligros de los hornos", "body": "<p>Un horno combina varios peligros serios en un solo lugar:</p><ul><li><b>Calor y humedad</b> dentro del área de carga y la cubierta de ventiladores</li><li><b>Vapor y superficies calientes</b> — líneas de vapor, serpentines, válvulas y líneas de condensado</li><li><b>Gases del horno</b> — la madera al secarse despide vapores, como formaldehído, acetaldehído y metanol</li><li><b>Ventiladores</b> que siguen girando después de apagarse</li><li><b>Puertas corredizas grandes</b> que pueden caer si se salen de su riel</li><li><b>Carros, vías y cables de transferencia</b></li><li><b>Montacargas y cargadores frontales</b> trabajando cerca de personas</li><li>La <b>cubierta de ventiladores</b>, un espacio confinado que requiere permiso</li><li><b>Incendio</b>, y <b>ruido</b> en el área de carga</li></ul><div class='notice'>Cada regla de esta capacitación existe para controlar uno de estos peligros.</div>", "kc": {"q": "¿Cuál de estos es un gas que despide la madera al secarse en el horno?", "opts": ["Solo el dióxido de carbono del montacargas", "Cloro", "Formaldehído", "Amoníaco"], "a": 2}}, {"h": "3. Antes de cada carga", "body": "<p>Las puertas y marcos del horno son grandes y costosos, y protegen a las personas que trabajan alrededor. Haga estas revisiones <b>antes de cada carga o descarga</b> (Lista de Revisión antes de Cargar):</p><ul><li>El horno está apagado y el Supervisor de Hornos lo autorizó para cargar</li><li>La puerta principal está <b>completamente abierta, estacionada y asegurada</b>, con sus dispositivos de seguridad en su lugar</li><li>Marco, rieles de la puerta, vías y topes revisados — sin daños ni escombros</li><li>Nadie en el horno, en las vías ni en el camino de carga</li><li>La carga cabe por la abertura; los separadores no sobresalen más de <b>2 pulgadas</b>; la carga es estable</li><li>Carros calzados si es necesario; un guía si no puede ver ambos lados de la abertura</li><li>Su inspección del equipo antes del turno está hecha</li></ul><div class='danger'><b>Cualquier contacto con una puerta, marco, vía o el horno — aunque sea leve: DETÉNGASE.</b> Mantenga a las personas alejadas y llame al Supervisor de Hornos de inmediato. No se reanuda la carga hasta revisar la puerta y sus dispositivos de seguridad. Se espera que reporte el contacto — así se encuentran los daños antes de que alguien se lastime.</div>", "kc": {"q": "Su montacargas toca levemente el marco de una puerta del horno. ¿Qué hace?", "opts": ["Seguir si nada se ve doblado", "Mencionarlo al final del turno", "Retroceder e intentar de nuevo", "Detenerse, mantener a las personas alejadas y avisar al Supervisor de Hornos de inmediato"], "a": 3}}, {"h": "4. Puertas, carros y cables", "body": "<h2>Puertas</h2><ul><li>Las puertas están completamente abiertas, estacionadas y aseguradas antes de mover cualquier carro. Nunca deje una puerta a medio mover.</li><li><b>Nunca empuje, jale ni golpee</b> una puerta, marco o tope de vía con el montacargas o el cargador frontal.</li><li>Nunca se pare debajo de una puerta en movimiento, ni entre una puerta en movimiento y un objeto fijo.</li><li>Si una puerta se atora o se sale del riel, deténgase, mantenga a las personas alejadas y llame al Supervisor de Hornos y a Mantenimiento. Nunca la fuerce con el equipo.</li></ul><h2>Carros y vías</h2><ul><li>Use un guía al empujar o jalar una carga.</li><li><b>Toque la bocina antes de mover cualquier carro</b> y confirme que la vía está libre y que no hay nadie en el horno ni en el camino.</li><li>Calce los carros que no deben moverse.</li></ul><h2>Cable de transferencia (Hornos #1 y #2)</h2><div class='danger'>Un cable bajo tensión puede regresar con fuerza. <b>Mantenga a todos fuera de la curva (seno) del cable</b> y lejos de su trayectoria.</div>", "kc": {"q": "Antes de mover cualquier carro del horno, usted…", "opts": ["Toca la bocina y confirma que la vía y el camino están libres", "Saluda con la mano una vez y avanza", "Solo revisa el otro extremo de la vía", "Espera a que alguien le diga que se movió"], "a": 0}}, {"h": "5. Revisiones en caliente — entrar al área de carga", "body": "<p>Los operadores entran al <b>área de carga</b> (donde están los carros) para las revisiones en caliente, según el SOP-KLN-003. Cada entrada sigue estas reglas:</p><ol style='padding-left:22px'><li>El horno está detenido, los <b>ventiladores se detuvieron por completo</b> y la <b>calefacción está apagada</b> antes de abrir cualquier puerta.</li><li>Párese a un lado al abrir cada puerta — sale aire caliente y vapor. Deje ventilar el horno el tiempo que indique el Supervisor de Hornos.</li><li>Mantenga abiertas las puertas de acceso personal para tener salida en ambos extremos.</li><li>Cuelgue la etiqueta <b>PERSON IN KILN</b> (PERSONA EN EL HORNO) en la puerta. No se mueve ningún carro, montacargas, cargador ni puerta en ese horno mientras esté colgada.</li><li>Avise al líder o a un compañero antes de entrar y lleve un radio.</li><li>Limite su tiempo adentro, tome agua y salga a refrescarse.</li><li>Quédese en el área de carga. <b>Nunca suba a la cubierta de ventiladores.</b></li><li>Al terminar, asegúrese de que todos salieron y quite la etiqueta.</li></ol>", "kc": {"q": "¿Qué debe cumplirse antes de abrir una puerta del horno para una revisión en caliente?", "opts": ["El horno en Hold con los ventiladores funcionando", "El horno detenido, los ventiladores detenidos por completo y la calefacción apagada", "Solo la calefacción apagada", "Nada — ábrala rápido para ahorrar tiempo"], "a": 1}}, {"h": "6. La cubierta de ventiladores es un espacio confinado", "body": "<p>La <b>cubierta de ventiladores (ático)</b> sobre el área de carga contiene los ventiladores, motores y serpentines. Es un <b>espacio confinado que requiere permiso</b>.</p><ul><li>Nadie entra sin la autorización del Supervisor de Hornos y un permiso de entrada completo del <b>Black Packet</b> (Paquete Negro) del horno, según el SOP-KLN-005.</li><li>Primero se bloquean los ventiladores y el vapor, se enfría y ventila el espacio, y se prueba el aire antes y durante la entrada.</li><li>Un asistente capacitado permanece afuera de la puerta de acceso todo el tiempo.</li></ul><div class='danger'><b>Nunca entre a rescatar.</b> Si alguien se lastima o no responde adentro, llame al 911. El asistente usa el equipo de recuperación desde afuera. El Departamento de Bomberos de Bingen realiza el rescate con entrada.</div>", "kc": {"q": "Un compañero se desmaya en la cubierta de ventiladores. ¿Qué hace?", "opts": ["Entrar de inmediato y sacarlo", "Esperar a ver si se recupera", "Llamar al 911 y dejar que el asistente use el equipo de recuperación desde afuera — nunca entrar", "Encender los ventiladores para meter aire fresco"], "a": 2}}, {"h": "7. Calor", "body": "<p>Trabajar dentro de un horno caliente, y cargar en verano, puede causar enfermedades por calor.</p><ul><li>Ventile el horno antes de entrar. Limite su tiempo adentro y tome descansos para refrescarse fuera del horno.</li><li>Tome agua fresca antes de tener sed.</li><li>Los trabajadores nuevos o que regresan se acostumbran al calor durante varios días.</li></ul><div class='notice'><b>Señales tempranas</b> — sudor abundante, calambres, dolor de cabeza, mareo, náusea, cansancio inusual: salga del horno, refrésquese, tome agua y avise a su supervisor.</div><div class='danger'><b>Señales de emergencia</b> — confusión, habla arrastrada, desmayo, piel caliente, convulsiones: <b>llame al 911</b>, lleve a la persona a un lugar fresco y enfríela de inmediato con agua y aire.</div><p>En clima frío, espere al menos 10 minutos en el cuarto caliente después de salir de un horno caliente antes de salir al aire frío.</p>", "kc": {"q": "Un compañero sale de un horno caliente confundido y con el habla arrastrada. Esto es…", "opts": ["Cansancio normal", "Una emergencia por calor — llame al 911 y enfríelo de inmediato", "Una razón para volver a entrar y terminar más rápido", "Nada que reportar"], "a": 1}}, {"h": "8. Incendio en el horno", "body": "<p>El aire fresco alimenta el fuego. <b>Nunca abra un horno si sospecha un incendio</b> — ni las puertas principales, ni las de acceso personal, ni las de la cubierta de ventiladores — y nunca entre.</p><h2>Reconózcalo</h2><ul><li>La alarma <b>Fire trip</b> en Wellons CMZ (dos sensores de bulbo seco arriba de 300°F)</li><li>La temperatura sigue subiendo después de apagar la calefacción</li><li>Humo de las ventilas, puertas o sellos, u olor a madera quemada</li><li>Un solo sensor alto: vigílelo de cerca y avise al líder</li></ul><h2>Primera respuesta (SOP-KLN-006)</h2><ul><li>Mantenga el horno cerrado. Si la alarma Fire trip no lo apagó, detenga el horno en Wellons CMZ y verifique que los ventiladores se detuvieron.</li><li>Llame al 911 y dé el número del horno. Avise al supervisor de hornos, a la planta de vapor y al Gerente de ESHS.</li><li>La sofocación con vapor se aplica según indique el supervisor de hornos.</li></ul><div class='danger'>Cada horno tiene rociadores automáticos. <b>Nunca cierre una válvula de rociadores del horno durante un incendio</b> a menos que los bomberos lo indiquen. Si el fuego salió del horno, no lo combata — aléjese. El horno se abre solo con los bomberos presentes.</div>", "kc": {"q": "Sospecha un incendio en un horno. La primera regla es…", "opts": ["Abrir una puerta de acceso para ver", "Entrar con un extintor", "Subir los ventiladores", "Nunca abrir el horno — mantener las puertas cerradas"], "a": 3}}, {"h": "9. Bloqueo — su papel", "body": "<p>Los ventiladores, motores, vapor, aire y puertas del horno se reparan solo bajo los procedimientos de bloqueo del horno y el Programa de Bloqueo/Etiquetado de SDS.</p><ul><li><b>Detener un horno desde la pantalla de Wellons no es bloqueo.</b> La energía se bloquea en los desconectadores, interruptores y válvulas manuales indicados para cada horno.</li><li>Los ventiladores siguen girando después de cortar la energía, y el aire en movimiento puede hacer girar un ventilador apagado.</li><li><b>Nunca quite el candado o la etiqueta de otra persona</b>, y nunca intente arrancar equipo bloqueado.</li></ul><div class='notice'>Si usted no es un empleado autorizado para bloqueo, su trabajo es sencillo: manténgase alejado, no toque candados ni etiquetas, y pregunte a su supervisor si tiene dudas.</div>", "kc": {"q": "Detener el horno desde la pantalla de Wellons antes de un trabajo de mantenimiento es…", "opts": ["No es bloqueo — la energía debe bloquearse en los dispositivos de aislamiento", "Un bloqueo completo", "Suficiente para entrar a la cubierta de ventiladores", "Solo necesario para trabajos de vapor"], "a": 0}}], "quiz": [{"q": "El espacio confinado que requiere permiso en los hornos es…", "opts": ["El área de carga", "La cubierta de ventiladores (ático)", "El cuarto caliente", "El cuarto de control del horno"], "a": 1}, {"q": "Antes de cargar, la puerta principal del horno debe estar…", "opts": ["Parcialmente abierta", "Cerrada hasta que llegue el carro", "Completamente abierta, estacionada y asegurada, con sus dispositivos de seguridad en su lugar", "Fuera de su riel"], "a": 2}, {"q": "Su montacargas toca levemente el marco de una puerta del horno al cargar. Usted debe…", "opts": ["Detenerse, mantener a las personas alejadas y avisar al Supervisor de Hornos de inmediato", "Seguir cargando si no hay daño visible", "Reportarlo al final del turno", "Retroceder e intentar de nuevo"], "a": 0}, {"q": "Antes de abrir una puerta del horno para una revisión en caliente…", "opts": ["El horno puede quedar en Hold con los ventiladores funcionando", "Ábrala rápido y entre de inmediato", "Solo la calefacción debe estar apagada", "El horno está detenido, los ventiladores detenidos por completo y la calefacción apagada"], "a": 3}, {"q": "Mientras alguien está dentro del área de carga…", "opts": ["Los carros pueden moverse si van despacio", "Se cuelga la etiqueta PERSON IN KILN y no se mueve ningún carro, montacargas ni puerta en ese horno", "Se cierran las puertas de acceso para conservar el calor", "Puede subir a la cubierta de ventiladores si es necesario"], "a": 1}, {"q": "Se sospecha un incendio en un horno. La primera regla es…", "opts": ["Abrir una puerta de acceso para revisar", "Entrar con un extintor", "Nunca abrir el horno — mantener todas las puertas cerradas", "Subir los ventiladores"], "a": 2}, {"q": "Los separadores pueden sobresalir de los lados de una pila del horno no más de…", "opts": ["2 pulgadas", "6 pulgadas", "12 pulgadas", "No hay límite"], "a": 0}, {"q": "Los rociadores del horno se activaron durante un incendio. Usted debe…", "opts": ["Cerrar la válvula de rociadores para ahorrar agua", "Abrir una puerta para ver si se apagó el fuego", "Apagar los rociadores después de un minuto", "Mantener el horno cerrado y dejar que funcionen los rociadores; no cerrar la válvula a menos que los bomberos lo indiquen"], "a": 3}, {"q": "Al jalar una carga con el cable de transferencia en los Hornos #1 y #2…", "opts": ["Párese junto al cable para guiarlo", "Mantenga a todos fuera de la curva (seno) del cable y lejos de su trayectoria", "Sostenga el cable con la mano para estabilizarlo", "Jale lo más rápido posible"], "a": 1}, {"q": "Detener el horno desde la pantalla de Wellons antes de un mantenimiento…", "opts": ["Cuenta como bloqueo", "Es suficiente para entrar a la cubierta de ventiladores", "No es bloqueo — la energía debe bloquearse en los dispositivos de aislamiento", "Solo es necesario para trabajos de vapor"], "a": 2}], "quizH": "Examen final", "quizIntro": "Responda las 10 preguntas. Necesita 8 correctas (80%) para aprobar. Tómese su tiempo — puede revisar el material y volver a tomar el examen si es necesario.", "submitBtn": "Enviar examen", "answerAll": "Por favor responda todas las preguntas antes de enviar.", "passH": "¡Felicidades — Aprobó!", "passSub": "Certificado de Finalización", "passModule": "Seguridad en Hornos de Secado — Capacitación del Empleado ", "scoreLabel": "Puntaje", "dateLabel": "Fecha", "codeLabel": "Su código de finalización", "passInstr": "<b>Último paso — registre su finalización:</b> toque el botón de abajo y envíe el formulario. Escriba su nombre, seleccione <b>\"Dry Kiln Safety / Seguridad en Hornos de Secado\"</b> de la lista de módulos, e ingrese el código mostrado arriba. Su capacitación no queda registrada hasta que envíe el formulario.", "completion": "", "recordBtn": "Registrar mi finalización", "failH": "Aún no — Siga adelante", "failMsg": "Obtuvo menos del 80%. Repase el material — especialmente las revisiones antes de cargar, las reglas de revisión en caliente, la cubierta de ventiladores, la respuesta a incendios y el bloqueo — e inténtelo de nuevo. No hay límite de intentos.", "reviewBtn": "Repasar el material", "retakeBtn": "Repetir el examen", "yourScore": "Su puntaje"}
+};
+
+var ANSWER_KEY = STR.en.quiz.map(function(q){ return q.a; });
+
+/* ------------ State ------------ */
+var state = { lang:null, screen:"lang", section:0, name:"", kcDone:{}, quizAnswers:{}, lastScore:null, code:null };
+
+/* ------------ Helpers ------------ */
+function T(){ return STR[state.lang]; }
+function $(id){ return document.getElementById(id); }
+function esc(s){ var d=document.createElement("div"); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
+
+function generateCode(){
+  var chars="ABCDEFGHJKMNPQRSTUVWXYZ23456789", out="";
+  for(var i=0;i<5;i++){ out+=chars.charAt(Math.floor(Math.random()*chars.length)); }
+  return CODE_PREFIX+out;
+}
+function gradeQuiz(answers){
+  var correct=0;
+  for(var i=0;i<ANSWER_KEY.length;i++){ if(answers[i]===ANSWER_KEY[i]) correct++; }
+  var pct=Math.round(correct/ANSWER_KEY.length*100);
+  return { correct:correct, total:ANSWER_KEY.length, pct:pct, pass: pct>=PASS_PCT };
+}
+
+/* ------------ Rendering ------------ */
+function setLang(l){
+  state.lang=l;
+  if(state.screen==="lang") state.screen="intro";
+  $("langBar").className="langbar";
+  $("btnEN").className = l==="en"?"active":"";
+  $("btnES").className = l==="es"?"active":"";
+  render();
+}
+function progress(){
+  if(state.screen==="lang"){ $("progBar").style.width="0%"; return; }
+  var total = T().sections.length + 2;
+  var pos = state.screen==="intro"?0 : state.screen==="quiz"?total-1 : state.screen==="pass"||state.screen==="fail"?total : state.section+1;
+  $("progBar").style.width = Math.round(pos/total*100)+"%";
+}
+function renderLang(){
+  $("app").innerHTML =
+    '<div class="card splash">'+
+    '<div class="co">SDS LUMBER LLC</div>'+
+    '<div class="ti-en">Dry Kiln Safety Training</div>'+
+    '<div class="ti-es">Capacitación sobre Seguridad en Hornos de Secado</div>'+
+    '<div class="choose">Choose your language / Elija su idioma:</div>'+
+    '<div class="langbtns">'+
+    '<button id="langBtnEN">English</button>'+
+    '<button id="langBtnES">Español</button>'+
+    '</div></div>';
+  $("langBtnEN").addEventListener("click", function(){ setLang("en"); });
+  $("langBtnES").addEventListener("click", function(){ setLang("es"); });
+}
+function render(){
+  progress();
+  if(state.screen==="lang") renderLang();
+  else if(state.screen==="intro") renderIntro();
+  else if(state.screen==="section") renderSection();
+  else if(state.screen==="quiz") renderQuiz();
+  else if(state.screen==="pass") renderPass();
+  else if(state.screen==="fail") renderFail();
+}
+function renderIntro(){
+  var t=T();
+  $("app").innerHTML =
+    '<div class="card"><h1>'+t.introH+'</h1><p>'+t.introP1+'</p><p>'+t.introP2+'</p>'+
+    '<h2>'+t.nameLabel+'</h2>'+
+    '<input type="text" id="nameInput" placeholder="'+t.namePh+'" value="'+esc(state.name)+'" autocomplete="name">'+
+    '<br><button class="btn" id="startBtn" disabled>'+t.startBtn+'</button>'+
+    '<p style="color:var(--gray);font-size:.85em;margin-top:16px">'+t.basedOn+'</p></div>';
+  var inp=$("nameInput"), btn=$("startBtn");
+  function gate(){ state.name=inp.value.trim(); btn.disabled = state.name.length<2; }
+  inp.addEventListener("input", gate); gate();
+  btn.addEventListener("click", function(){ if(state.name.length>=2){ state.screen="section"; state.section=0; render(); window.scrollTo(0,0);} });
+}
+function renderSection(){
+  var t=T(), s=t.sections[state.section];
+  var html = '<div class="card"><div class="qnum">'+t.secLabel+' '+(state.section+1)+' '+t.ofLabel+' '+t.sections.length+'</div><h1>'+s.h+'</h1>'+s.body;
+  var kcPassed = !!state.kcDone[state.section];
+  if(s.kc){
+    html += '<div class="kc"><div class="kct">✔ '+s.kc.q+'</div>';
+    for(var i=0;i<s.kc.opts.length;i++){
+      html += '<label class="opt" id="kcOpt'+i+'"><input type="radio" name="kc" value="'+i+'"'+(kcPassed?' disabled':'')+'>'+s.kc.opts[i]+'</label>';
+    }
+    html += '<div class="fb" id="kcFb"></div>';
+    if(!kcPassed) html += '<button class="btn secondary" id="kcCheck">'+t.checkBtn+'</button>';
+    html += '</div>';
+  }
+  html += '<br><button class="btn" id="contBtn"'+((s.kc&&!kcPassed)?' disabled':'')+'>'+t.continueBtn+'</button></div>';
+  $("app").innerHTML = html;
+  if(s.kc && !kcPassed){
+    $("kcCheck").addEventListener("click", function(){
+      var sel=document.querySelector('input[name="kc"]:checked');
+      if(!sel) return;
+      var v=parseInt(sel.value,10), fb=$("kcFb");
+      if(v===s.kc.a){
+        state.kcDone[state.section]=true;
+        $("kcOpt"+v).className="opt correct";
+        fb.className="fb ok"; fb.textContent=t.kcOk;
+        $("contBtn").disabled=false; $("kcCheck").disabled=true;
+      } else {
+        $("kcOpt"+v).className="opt wrong";
+        $("kcOpt"+s.kc.a).className="opt correct";
+        fb.className="fb bad"; fb.textContent=t.kcBad;
+        state.kcDone[state.section]=true;
+        $("contBtn").disabled=false; $("kcCheck").disabled=true;
+      }
+    });
+  }
+  $("contBtn").addEventListener("click", function(){
+    if(state.section < t.sections.length-1){ state.section++; } else { state.screen="quiz"; }
+    render(); window.scrollTo(0,0);
+  });
+}
+function renderQuiz(){
+  var t=T();
+  var html='<div class="card"><h1>'+t.quizH+'</h1><p>'+t.quizIntro+'</p>';
+  for(var i=0;i<t.quiz.length;i++){
+    var q=t.quiz[i];
+    html+='<div class="quizq"><div class="qt">'+(i+1)+'. '+q.q+'</div>';
+    for(var j=0;j<q.opts.length;j++){
+      var checked = state.quizAnswers[i]===j ? ' checked' : '';
+      html+='<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'"'+checked+'>'+q.opts[j]+'</label>';
+    }
+    html+='</div>';
+  }
+  html+='<div class="fb bad" id="quizWarn" style="display:none">'+t.answerAll+'</div>';
+  html+='<button class="btn" id="quizSubmit">'+t.submitBtn+'</button></div>';
+  $("app").innerHTML=html;
+  var radios=document.querySelectorAll('#app input[type=radio]');
+  for(var r=0;r<radios.length;r++){
+    radios[r].addEventListener("change", function(e){
+      var name=e.target.name, idx=parseInt(name.substring(1),10);
+      state.quizAnswers[idx]=parseInt(e.target.value,10);
+    });
+  }
+  $("quizSubmit").addEventListener("click", function(){
+    var answers=[];
+    for(var i=0;i<t.quiz.length;i++){
+      if(typeof state.quizAnswers[i]==="undefined"){ $("quizWarn").style.display="block"; return; }
+      answers.push(state.quizAnswers[i]);
+    }
+    var res=gradeQuiz(answers);
+    state.lastScore=res;
+    if(res.pass){ state.code=generateCode(); state.screen="pass"; }
+    else { state.screen="fail"; }
+    render(); window.scrollTo(0,0);
+  });
+}
+function fmtDate(){
+  var d=new Date();
+  var m=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var mes=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  return state.lang==="es" ? d.getDate()+" "+mes[d.getMonth()]+" "+d.getFullYear() : m[d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
+}
+function renderPass(){
+  var t=T(), r=state.lastScore;
+  $("app").innerHTML =
+    '<div class="card"><p class="passmsg">'+t.passH+'</p></div>'+
+    '<div class="cert" id="certBox">'+
+      '<div>'+t.passSub+'</div>'+
+      '<div class="big" id="certName">'+esc(state.name)+'</div>'+
+      '<div>'+t.passModule+'</div>'+
+      '<div style="margin:8px 0">'+t.scoreLabel+': <b>'+r.correct+'/'+r.total+' ('+r.pct+'%)</b> &nbsp;·&nbsp; '+t.dateLabel+': <b id="certDate">'+fmtDate()+'</b></div>'+
+      '<div>'+t.codeLabel+':</div>'+
+      '<div class="code" id="certCode">'+state.code+'</div>'+
+    '</div>'+
+    '<div class="card"><p>'+t.passInstr+'</p>'+
+    '<a class="btn" id="recordLink" href="'+FORM_URL+'" target="_blank" rel="noopener">'+t.recordBtn+'</a></div>';
+}
+function renderFail(){
+  var t=T(), r=state.lastScore;
+  $("app").innerHTML =
+    '<div class="card" id="failBox"><p class="failmsg">'+t.failH+'</p>'+
+    '<p>'+t.yourScore+': <b>'+r.correct+'/'+r.total+' ('+r.pct+'%)</b></p>'+
+    '<p>'+t.failMsg+'</p>'+
+    '<button class="btn secondary" id="reviewBtn">'+t.reviewBtn+'</button> '+
+    '<button class="btn" id="retakeBtn">'+t.retakeBtn+'</button></div>';
+  $("reviewBtn").addEventListener("click", function(){ state.quizAnswers={}; state.screen="section"; state.section=0; render(); window.scrollTo(0,0); });
+  $("retakeBtn").addEventListener("click", function(){ state.quizAnswers={}; state.screen="quiz"; render(); window.scrollTo(0,0); });
+}
+
+/* ------------ Test hooks ------------ */
+window.APP = { STR:STR, state:state, gradeQuiz:gradeQuiz, generateCode:generateCode, ANSWER_KEY:ANSWER_KEY, FORM_URL:FORM_URL, PASS_PCT:PASS_PCT, MODULE_VERSION:MODULE_VERSION, CODE_PREFIX:CODE_PREFIX, setLang:setLang, render:render };
+window.setLang = setLang;
+
+render();
+</script>
+</body>
+</html>
