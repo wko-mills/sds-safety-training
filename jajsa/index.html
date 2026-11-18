@@ -14,10 +14,16 @@ body{font-family:Arial,Helvetica,sans-serif;background:#f7f8fa;color:#111;line-h
 h1{color:var(--dark);font-size:1.5em;margin:14px 0 2px;text-align:center}
 .es{color:var(--blue);text-align:center;font-size:1.05em;font-weight:bold;margin-bottom:6px}
 .note{text-align:center;color:var(--gray);font-size:.9em;margin-bottom:18px}
-h2{color:var(--blue);font-size:1.05em;margin:24px 0 10px;border-bottom:2px solid var(--blue);padding-bottom:4px}
+h2{color:var(--blue);font-size:1.05em;margin:14px 0 10px;border-bottom:2px solid var(--blue);padding-bottom:4px}
+.step{color:var(--dark);font-weight:bold;text-align:center;margin:6px 0 12px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:420px){.grid{grid-template-columns:1fr}}
+a.dep{position:relative;display:block;background:#fff;border:1px solid #d8dde3;border-left:6px solid var(--dark);border-radius:8px;padding:12px 44px 12px 14px;text-decoration:none;color:#111}
+a.dep .cnt{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:var(--blue);color:#fff;border-radius:12px;font-size:.8em;font-weight:bold;padding:2px 9px}
 a.mod{display:block;background:#fff;border:1px solid #d8dde3;border-left:6px solid var(--blue);border-radius:8px;padding:10px 14px;margin:0 0 10px;text-decoration:none;color:#111}
-a.mod:active{background:var(--light)}
-a.mod .en{font-weight:bold;color:var(--dark)}a.mod .esn{color:var(--blue);font-size:.95em}
+a.mod:active,a.dep:active{background:var(--light)}
+.en{font-weight:bold;color:var(--dark)}.esn{color:var(--blue);font-size:.95em}
+a.back{display:inline-block;margin:4px 0 6px;color:var(--blue);font-weight:bold;text-decoration:none;font-size:.95em}
 .ftr{text-align:center;color:var(--gray);font-size:.78em;margin-top:30px}
 </style>
 </head>
@@ -26,9 +32,28 @@ a.mod .en{font-weight:bold;color:var(--dark)}a.mod .esn{color:var(--blue);font-s
 <div class="wrap">
 <h1>JA/JSA Annual Sign-off</h1>
 <div class="es">Firma anual de JA/JSA</div>
-<div class="note">Tap your position, read it, then sign &middot; Toque su puesto, léalo y luego firme<br>Work more than one position? Sign each one. &middot; ¿Trabaja en más de un puesto? Firme cada uno.</div>
+<div class="note">Work more than one position? Sign each one. &middot; ¿Trabaja en más de un puesto? Firme cada uno.</div>
+<div id="menu">
+<div class="step">1. Choose your department &middot; Elija su departamento</div>
+<div class="grid">
+<a class="dep" href="#stud-mill"><div class="en">Stud Mill</div><div class="esn">Stud Mill</div><div class="cnt">10</div></a>
+<a class="dep" href="#barker"><div class="en">Barker</div><div class="esn">Descortezadora</div><div class="cnt">4</div></a>
+<a class="dep" href="#log-yard"><div class="en">Log Yard</div><div class="esn">Log Yard</div><div class="cnt">5</div></a>
+<a class="dep" href="#v-drum-chip-storage"><div class="en">V-Drum / Chip Storage</div><div class="esn">V-Drum / Almacenamiento de astilla</div><div class="cnt">6</div></a>
+<a class="dep" href="#planer-mill"><div class="en">Planer</div><div class="esn">Planer</div><div class="cnt">10</div></a>
+<a class="dep" href="#dry-kiln"><div class="en">Dry Kilns</div><div class="esn">Secadores</div><div class="cnt">2</div></a>
+<a class="dep" href="#shipping"><div class="en">Shipping</div><div class="esn">Embarques</div><div class="cnt">1</div></a>
+<a class="dep" href="#steam-plant"><div class="en">Steam Plant</div><div class="esn">Steam Plant</div><div class="cnt">1</div></a>
+<a class="dep" href="#millwrights"><div class="en">Maintenance — Millwrights &amp; Machinist</div><div class="esn">Mantenimiento — Millwrights y Maquinista</div><div class="cnt">4</div></a>
+<a class="dep" href="#electrical"><div class="en">Maintenance — Electrical</div><div class="esn">Mantenimiento — Eléctrico</div><div class="cnt">2</div></a>
+<a class="dep" href="#rolling-stock"><div class="en">Rolling Stock / Truck Shop</div><div class="esn">Equipo rodante / Truck Shop</div><div class="cnt">3</div></a>
+<a class="dep" href="#saw-filing"><div class="en">Saw Filing</div><div class="esn">Afilado de sierras</div><div class="cnt">1</div></a>
+<a class="dep" href="#janitorial-cleanup"><div class="en">Clean-Up &amp; Janitorial</div><div class="esn">Limpieza</div><div class="cnt">3</div></a>
+</div>
+</div>
+<section class="area" id="a-stud-mill" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Stud Mill &middot; Stud Mill</h2>
-<a class="mod" href="sawmill-supervisor.html"><div class="en">Sawmill Supervisor</div><div class="esn">Supervisor del Aserradero</div></a>
 <a class="mod" href="stud-mill-forklift-operator.html"><div class="en">Stud Mill Forklift Operator</div><div class="esn">Operador de Montacargas del Stud Mill</div></a>
 <a class="mod" href="stud-mill-lug-loader-operator.html"><div class="en">Stud Mill Lug Loader Operator</div><div class="esn">Operador del Lug Loader del Stud Mill</div></a>
 <a class="mod" href="stud-mill-north-head-rig-operator.html"><div class="en">Stud Mill North Head Rig Operator</div><div class="esn">Operador del Head Rig Norte del Stud Mill</div></a>
@@ -36,19 +61,29 @@ a.mod .en{font-weight:bold;color:var(--dark)}a.mod .esn{color:var(--blue);font-s
 <a class="mod" href="stud-mill-stacker-bin-operator.html"><div class="en">Stud Mill Stacker Bin Operator</div><div class="esn">Operador de Contenedores de la Apiladora del Stud Mill</div></a>
 <a class="mod" href="stud-mill-stacker-operator.html"><div class="en">Stud Mill Stacker Operator</div><div class="esn">Operador de Apiladora del Stud Mill</div></a>
 <a class="mod" href="stud-mill-storage-deck-operator.html"><div class="en">Stud Mill Storage Deck Operator</div><div class="esn">Operador de la Plataforma de Almacenamiento del Stud Mill</div></a>
+<a class="mod" href="sawmill-supervisor.html"><div class="en">Stud Mill Supervisor</div><div class="esn">Supervisor del Stud Mill</div></a>
 <a class="mod" href="stud-mill-usnr-edger-operator.html"><div class="en">Stud Mill USNR Edger Operator</div><div class="esn">Operador del Canteador USNR del Stud Mill</div></a>
 <a class="mod" href="stud-mill-utility-operator.html"><div class="en">Stud Mill Utility Operator</div><div class="esn">Operador Auxiliar del Stud Mill</div></a>
+</section>
+<section class="area" id="a-barker" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Barker &middot; Descortezadora</h2>
 <a class="mod" href="barker-84-saw-station-operator.html"><div class="en">84&quot; Saw Station Operator</div><div class="esn">Operador de la Estación de Sierra de 84&quot;</div></a>
 <a class="mod" href="barker-96-saw-station-operator.html"><div class="en">96&quot; Saw Station Operator</div><div class="esn">Operador de la Estación de Sierra de 96&quot;</div></a>
 <a class="mod" href="barker-block-yard-966-operator.html"><div class="en">Block Yard 966 Operator</div><div class="esn">Operador 966 del Block Yard</div></a>
 <a class="mod" href="barker-debarker-operator.html"><div class="en">Debarker Operator</div><div class="esn">Operador de la Descortezadora</div></a>
+</section>
+<section class="area" id="a-log-yard" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Log Yard &middot; Log Yard</h2>
 <a class="mod" href="logyard-letourneau-operator.html"><div class="en">Log Yard Letourneau Operator</div><div class="esn">Operador de Letourneau del Log Yard</div></a>
 <a class="mod" href="logyard-loader-operator.html"><div class="en">Log Yard Loader Operator</div><div class="esn">Operador de Cargador del Log Yard</div></a>
 <a class="mod" href="logyard-966-loader-operator.html"><div class="en">Log Yard Rubber Tire Wheel Loader Operator</div><div class="esn">Operador de Cargador Frontal de Llantas del Log Yard</div></a>
 <a class="mod" href="logyard-water-truck-operator.html"><div class="en">Log Yard Water Truck Operator</div><div class="esn">Operador de la Pipa de Agua del Log Yard</div></a>
 <a class="mod" href="logyard-yard-truck-operator.html"><div class="en">Log Yard Yard Truck Operator</div><div class="esn">Operador de Yard Truck del Log Yard</div></a>
+</section>
+<section class="area" id="a-v-drum-chip-storage" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>V-Drum / Chip Storage &middot; V-Drum / Almacenamiento de astilla</h2>
 <a class="mod" href="barge-loader-operator.html"><div class="en">Barge Loader Operator</div><div class="esn">Operador de Carga de Barcazas</div></a>
 <a class="mod" href="chip-cat-operator.html"><div class="en">Chip Cat Operator</div><div class="esn">Operador del Chip Cat</div></a>
@@ -56,6 +91,9 @@ a.mod .en{font-weight:bold;color:var(--dark)}a.mod .esn{color:var(--blue);font-s
 <a class="mod" href="v-drum-barker-operator.html"><div class="en">V-Drum Barker Operator</div><div class="esn">Operador de la Descortezadora del V-Drum</div></a>
 <a class="mod" href="v-drum-loader-operator.html"><div class="en">V-Drum Loader Operator</div><div class="esn">Operador de Cargador del V-Drum</div></a>
 <a class="mod" href="yard-truck-operator.html"><div class="en">Yard Truck Operator</div><div class="esn">Operador de Yard Truck</div></a>
+</section>
+<section class="area" id="a-planer-mill" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Planer &middot; Planer</h2>
 <a class="mod" href="planer-floor-forklift-operator.html"><div class="en">Planer Floor Forklift Operator</div><div class="esn">Operador de Montacargas de Piso del Planer</div></a>
 <a class="mod" href="planer-infeed-forklift-operator.html"><div class="en">Planer Infeed Forklift Operator</div><div class="esn">Operador de Montacargas de Alimentación del Planer</div></a>
@@ -67,34 +105,68 @@ a.mod .en{font-weight:bold;color:var(--dark)}a.mod .esn{color:var(--blue);font-s
 <a class="mod" href="planer-tilt-hoist-operator.html"><div class="en">Planer Tilt Hoist Operator</div><div class="esn">Operador del Tilt Hoist del Planer</div></a>
 <a class="mod" href="planer-utility-operator.html"><div class="en">Planer Utility Operator</div><div class="esn">Operador Auxiliar del Planer</div></a>
 <a class="mod" href="planer-wrap-station-operator.html"><div class="en">Planer Wrap Station Operator</div><div class="esn">Operador de la Estación de Envoltura del Planer</div></a>
+</section>
+<section class="area" id="a-dry-kiln" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Dry Kilns &middot; Secadores</h2>
 <a class="mod" href="kiln-loading-operator.html"><div class="en">Kiln Loading Operator</div><div class="esn">Operador de Carga de Secadores</div></a>
 <a class="mod" href="kiln-unloading-operator.html"><div class="en">Kiln Unloading Operator</div><div class="esn">Operador de Descarga de Secadores</div></a>
+</section>
+<section class="area" id="a-shipping" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Shipping &middot; Embarques</h2>
 <a class="mod" href="shipping-forklift-operator.html"><div class="en">Shipping Forklift Operator</div><div class="esn">Operador de Montacargas de Embarques</div></a>
+</section>
+<section class="area" id="a-steam-plant" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Steam Plant &middot; Steam Plant</h2>
 <a class="mod" href="steam-plant-boiler-operator.html"><div class="en">Steam Plant Boiler Operator</div><div class="esn">Operador de Caldera del Steam Plant</div></a>
+</section>
+<section class="area" id="a-millwrights" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Maintenance — Millwrights &amp; Machinist &middot; Mantenimiento — Millwrights y Maquinista</h2>
 <a class="mod" href="lubrication-tech.html"><div class="en">Lubrication Technician</div><div class="esn">Técnico de Lubricación</div></a>
 <a class="mod" href="machinist.html"><div class="en">Machinist</div><div class="esn">Maquinista</div></a>
 <a class="mod" href="maintenance-millwright.html"><div class="en">Maintenance Millwright</div><div class="esn">Millwright de Mantenimiento</div></a>
 <a class="mod" href="millwright-crew-lead.html"><div class="en">Millwright Crew Lead</div><div class="esn">Líder de Cuadrilla de Millwrights</div></a>
+</section>
+<section class="area" id="a-electrical" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Maintenance — Electrical &middot; Mantenimiento — Eléctrico</h2>
 <a class="mod" href="electrician.html"><div class="en">Electrician</div><div class="esn">Electricista</div></a>
 <a class="mod" href="electrician-crew-lead.html"><div class="en">Electrician Crew Lead</div><div class="esn">Líder de Cuadrilla de Electricistas</div></a>
+</section>
+<section class="area" id="a-rolling-stock" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Rolling Stock / Truck Shop &middot; Equipo rodante / Truck Shop</h2>
 <a class="mod" href="fuel-and-lube-truck-operator.html"><div class="en">Fuel and Lube Truck Operator</div><div class="esn">Operador del Camión de Combustible y Lubricación</div></a>
 <a class="mod" href="letourneau-mechanic.html"><div class="en">Letourneau Mechanic</div><div class="esn">Mecánico de Letourneau</div></a>
 <a class="mod" href="truck-shop-mechanic.html"><div class="en">Truck Shop Mechanic</div><div class="esn">Mecánico del Truck Shop</div></a>
+</section>
+<section class="area" id="a-saw-filing" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Saw Filing &middot; Afilado de sierras</h2>
 <a class="mod" href="saw-filer.html"><div class="en">Saw Filer</div><div class="esn">Afilador de Sierras</div></a>
+</section>
+<section class="area" id="a-janitorial-cleanup" hidden>
+<a class="back" href="#all">&larr; All departments &middot; Todos los departamentos</a>
 <h2>Clean-Up &amp; Janitorial &middot; Limpieza</h2>
 <a class="mod" href="cleanup-leadman.html"><div class="en">Clean-Up Lead Man</div><div class="esn">Líder de Limpieza</div></a>
 <a class="mod" href="janitorial-utility.html"><div class="en">Janitorial/Utility</div><div class="esn">Limpieza/Auxiliar</div></a>
 <a class="mod" href="machine-clean-up-operator.html"><div class="en">Machine Clean-Up Operator</div><div class="esn">Operador de Limpieza con Máquina</div></a>
+</section>
 
 <div class="ftr">52 positions &middot; SDS Lumber LLC &middot; Bingen, WA</div>
 </div>
-<script>(function(){var s=new URLSearchParams(location.search).get('sup');if(!s)return;s=s.replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,60);var a=document.querySelectorAll('a.mod');for(var i=0;i<a.length;i++){a[i].href+='?sup='+encodeURIComponent(s)}})();</script>
+<script>(function(){
+var q=new URLSearchParams(location.search),s=q.get('sup'),a=q.get('area');
+if(s){s=s.replace(/[\u0000-\u001f<>]/g,'').trim().slice(0,60);var m=document.querySelectorAll('a.mod');for(var i=0;i<m.length;i++){m[i].href+='?sup='+encodeURIComponent(s)}}
+function show(){var h=location.hash.replace('#',''),sec=h?document.getElementById('a-'+h):null,all=document.querySelectorAll('section.area');
+for(var i=0;i<all.length;i++)all[i].hidden=true;
+if(sec){sec.hidden=false;document.getElementById('menu').style.display='none'}else{document.getElementById('menu').style.display=''}
+window.scrollTo(0,0)}
+window.addEventListener('hashchange',show);
+if(a&&!location.hash&&document.getElementById('a-'+a)){location.replace('#'+a)}else{show()}
+})();</script>
 </body>
 </html>
